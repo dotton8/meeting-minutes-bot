@@ -1,0 +1,6 @@
+flask==3.1.*
+gunicorn==23.*
+python-dotenv==1.*
+azure-cognitiveservices-speech==1.53.*
+azure-ai-textanalytics==5.4.*
+dateparser==1.*

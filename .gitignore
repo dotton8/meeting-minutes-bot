@@ -1,0 +1,25 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Node (in case)
+node_modules/
+
+# Temporary and test audio
+temp_audio/
+*.wav
+*.mp3
+*.webm
+
+# Do NOT add requirements.txt - Azure needs it to install dependencies
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/

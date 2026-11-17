@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meeting Minutes Bot</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; color: #1f2328; }
+  h1 { margin-bottom: .25rem; } .sub { color: #59636e; margin-top: 0; }
+  .card { border: 1px solid #d1d9e0; border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0; }
+  button { padding: .5rem 1rem; border-radius: 6px; border: 1px solid #1f6feb; background: #1f6feb; color: #fff; cursor: pointer; }
+  button.secondary { background: #fff; color: #1f6feb; } button:disabled { opacity: .5; cursor: default; }
+  .tag { display: inline-block; background: #ddf4ff; border-radius: 999px; padding: .15rem .6rem; margin: .15rem; font-size: .9rem; }
+  table { border-collapse: collapse; width: 100%; } th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid #eaeef2; }
+  #status { color: #59636e; } .error { color: #cf222e; }
+</style>
+</head>
+<body>
+<h1>Meeting Minutes Bot</h1>
+<p class="sub">Record or upload a meeting clip. Get decisions, action items with owners and due dates, and a spoken summary.</p>
+
+<div class="card">
+  <p><button id="rec">● Record</button> <button id="stop" class="secondary" disabled>■ Stop</button>
+     <span id="recInfo"></span></p>
+  <p>or upload: <input type="file" id="file" accept=".wav,.mp3,.webm,.ogg,.m4a"></p>
+  <p>Meeting date: <input type="date" id="date"></p>
+  <p><button id="submit">Submit</button> <span id="status"></span></p>
+</div>
+
+<div id="results" hidden>
+  <div class="card"><h3>Spoken summary</h3><p id="summaryText"></p><audio id="player" controls></audio></div>
+  <div class="card"><h3>Decisions</h3><ul id="decisions"></ul></div>
+  <div class="card"><h3>Action items</h3>
+    <table><thead><tr><th>Task</th><th>Owner</th><th>Due</th></tr></thead><tbody id="actions"></tbody></table></div>
+  <div class="card"><h3>Transcript</h3><p id="transcript"></p></div>
+  <div class="card"><h3>Key phrases</h3><div id="phrases"></div></div>
+  <div class="card"><h3>Entities</h3>
+    <table><thead><tr><th>Text</th><th>Category</th><th>Confidence</th></tr></thead><tbody id="entities"></tbody></table></div>
+  <div class="card"><h3>Sentiment</h3><p id="sentiment"></p></div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+$("date").valueAsDate = new Date();
+let recorder, chunks = [], recordedBlob = null;
+
+$("rec").onclick = async () => {
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  recorder = new MediaRecorder(stream); chunks = [];
+  recorder.ondataavailable = e => chunks.push(e.data);
+  recorder.onstop = () => {
+    recordedBlob = new Blob(chunks, { type: recorder.mimeType });
+    stream.getTracks().forEach(t => t.stop());
+    $("recInfo").textContent = `Recorded ${(recordedBlob.size / 1024).toFixed(0)} KB`;
+  };
+  recorder.start(); $("rec").disabled = true; $("stop").disabled = false; $("recInfo").textContent = "Recording…";
+};
+$("stop").onclick = () => { recorder.stop(); $("rec").disabled = false; $("stop").disabled = true; };
+
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+$("submit").onclick = async () => {
+  const form = new FormData();
+  const file = $("file").files[0];
+  if (file) form.append("audio", file);
+  else if (recordedBlob) form.append("audio", recordedBlob, "recording.webm");
+  else { $("status").textContent = "Record or choose a file first."; return; }
+  form.append("meeting_date", $("date").value);
+
+  $("submit").disabled = true; $("status").className = ""; $("status").textContent = "Processing…";
+  try {
+    const res = await fetch("/process", { method: "POST", body: form });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || res.statusText);
+    render(data); $("status").textContent = `Done in ${(data.metrics.total_ms / 1000).toFixed(1)} s`;
+  } catch (e) { $("status").className = "error"; $("status").textContent = e.message; }
+  finally { $("submit").disabled = false; }
+};
+
+function render(d) {
+  $("results").hidden = false;
+  $("summaryText").textContent = d.summary.text;
+  if (d.summary.audio_base64) $("player").src = "data:audio/mpeg;base64," + d.summary.audio_base64;
+  $("decisions").innerHTML = d.minutes.decisions.map(x => `<li>${esc(x)}</li>`).join("") || "<li>None found</li>";
+  $("actions").innerHTML = d.minutes.action_items.map(a =>
+    `<tr><td>${esc(a.task)}</td><td>${esc(a.owner)}</td><td>${esc(a.due_date || a.due_text || "—")}</td></tr>`).join("")
+    || "<tr><td colspan=3>None found</td></tr>";
+  $("transcript").textContent = d.transcription.transcript;
+  $("phrases").innerHTML = d.analysis.key_phrases.map(p => `<span class="tag">${esc(p)}</span>`).join("");
+  $("entities").innerHTML = d.analysis.entities.map(e =>
+    `<tr><td>${esc(e.text)}</td><td>${esc(e.category)}</td><td>${e.confidence}</td></tr>`).join("");
+  const s = d.analysis.sentiment;
+  $("sentiment").textContent = `${s.label} (positive ${s.scores.positive}, neutral ${s.scores.neutral}, negative ${s.scores.negative})`;
+}
+</script>
+</body>
+</html>

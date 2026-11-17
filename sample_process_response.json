@@ -1,0 +1,546 @@
+{
+  "analysis": {
+    "entities": [
+      {
+        "category": "Event",
+        "confidence": 0.38,
+        "length": 6,
+        "offset": 53,
+        "subcategory": null,
+        "text": "launch"
+      },
+      {
+        "category": "DateTime",
+        "confidence": 1,
+        "length": 13,
+        "offset": 63,
+        "subcategory": "Date",
+        "text": "December 15th"
+      },
+      {
+        "category": "Person",
+        "confidence": 1,
+        "length": 4,
+        "offset": 78,
+        "subcategory": null,
+        "text": "Jake"
+      },
+      {
+        "category": "Location",
+        "confidence": 0.78,
+        "length": 10,
+        "offset": 103,
+        "subcategory": null,
+        "text": "pitch deck"
+      },
+      {
+        "category": "DateTime",
+        "confidence": 0.99,
+        "length": 9,
+        "offset": 114,
+        "subcategory": "DateRange",
+        "text": "by Friday"
+      },
+      {
+        "category": "Person",
+        "confidence": 1,
+        "length": 6,
+        "offset": 125,
+        "subcategory": null,
+        "text": "Andrew"
+      },
+      {
+        "category": "DateTime",
+        "confidence": 1,
+        "length": 12,
+        "offset": 177,
+        "subcategory": "Date",
+        "text": "next Tuesday"
+      },
+      {
+        "category": "Person",
+        "confidence": 0.99,
+        "length": 3,
+        "offset": 197,
+        "subcategory": null,
+        "text": "Sam"
+      },
+      {
+        "category": "Location",
+        "confidence": 0.9,
+        "length": 15,
+        "offset": 219,
+        "subcategory": "Structural",
+        "text": "conference room"
+      },
+      {
+        "category": "Event",
+        "confidence": 0.55,
+        "length": 11,
+        "offset": 243,
+        "subcategory": null,
+        "text": "client demo"
+      },
+      {
+        "category": "DateTime",
+        "confidence": 1,
+        "length": 15,
+        "offset": 255,
+        "subcategory": "DateRange",
+        "text": "by December 1st"
+      },
+      {
+        "category": "DateTime",
+        "confidence": 0.99,
+        "length": 8,
+        "offset": 321,
+        "subcategory": "Date",
+        "text": "the 10th"
+      }
+    ],
+    "key_phrases": [
+      "product launch",
+      "pitch deck",
+      "budget numbers",
+      "conference room",
+      "client demo",
+      "December 1st",
+      "Jake",
+      "Friday",
+      "Andrew",
+      "Sam",
+      "plan",
+      "10th"
+    ],
+    "sentiment": {
+      "label": "positive",
+      "scores": {
+        "negative": 0,
+        "neutral": 0.26,
+        "positive": 0.74
+      }
+    }
+  },
+  "meeting_id": "d03ed6f4a992427b94d30da5ef9d0549",
+  "metrics": {
+    "action_items_count": 3,
+    "language_analysis_ms": 979,
+    "speech_to_text_ms": 11329,
+    "text_to_speech_ms": 1662,
+    "total_ms": 13970
+  },
+  "minutes": {
+    "action_items": [
+      {
+        "due_date": "2026-11-20",
+        "due_text": "by Friday",
+        "owner": "Jake",
+        "source_sentence": "Jake, can you update the pitch deck by Friday?",
+        "task": "Update the pitch deck"
+      },
+      {
+        "due_date": "2026-11-24",
+        "due_text": "next Tuesday",
+        "owner": "Andrew",
+        "source_sentence": "Andrew, will you send the budget numbers to finance next Tuesday?",
+        "task": "Send the budget numbers to finance"
+      },
+      {
+        "due_date": "2026-12-01",
+        "due_text": "by December 1st",
+        "owner": "Sam",
+        "source_sentence": "Also, Sam needs to book the conference room for the client demo by December 1st.",
+        "task": "Book the conference room for the client demo"
+      }
+    ],
+    "completions": [],
+    "counts": {
+      "action_items": 3,
+      "decisions": 1
+    },
+    "decisions": [
+      "We agreed to push the product launch to December 15th"
+    ],
+    "meeting_date": "2026-11-17"
+  },
+  "summary": {
+    "audio_base64": "//NIxAAWADYIFDJMQAWpUIy6IH0gTQEAIBj4gGBG...(truncated)",
+    "audio_format": "audio/mpeg",
+    "error": null,
+    "text": "This meeting covered 12 key topics, including product launch, pitch deck, budget numbers. The overall tone was positive. I detected 5 datetimes, 3 persons, 2 events, 2 locations. I found 1 decision and 3 action items. Jake: Update the pitch deck, due by Friday. Andrew: Send the budget numbers to finance, due next Tuesday. Sam: Book the conference room for the client demo, due by December 1st."
+  },
+  "transcription": {
+    "confidence": 0.839,
+    "duration_seconds": 25.31,
+    "language": "en-US",
+    "transcript": "OK, let's get started. We agreed to push the product launch to December 15th. Jake, can you update the pitch deck by Friday? Andrew, will you send the budget numbers to finance next Tuesday? Also, Sam needs to book the conference room for the client demo by December 1st. I think the plan looks good. Let's meet again on the 10th.",
+    "words": [
+      {
+        "confidence": 0.402,
+        "duration": 0.36,
+        "offset": 2.69,
+        "word": "OK"
+      },
+      {
+        "confidence": 0.845,
+        "duration": 0.2,
+        "offset": 3.05,
+        "word": "let's"
+      },
+      {
+        "confidence": 0.948,
+        "duration": 0.12,
+        "offset": 3.25,
+        "word": "get"
+      },
+      {
+        "confidence": 0.948,
+        "duration": 0.6,
+        "offset": 3.37,
+        "word": "started"
+      },
+      {
+        "confidence": 0.789,
+        "duration": 0.2,
+        "offset": 3.97,
+        "word": "we"
+      },
+      {
+        "confidence": 0.857,
+        "duration": 0.32,
+        "offset": 4.17,
+        "word": "agreed"
+      },
+      {
+        "confidence": 0.922,
+        "duration": 0.24,
+        "offset": 4.49,
+        "word": "to"
+      },
+      {
+        "confidence": 0.906,
+        "duration": 0.2,
+        "offset": 4.73,
+        "word": "push"
+      },
+      {
+        "confidence": 0.908,
+        "duration": 0.16,
+        "offset": 4.93,
+        "word": "the"
+      },
+      {
+        "confidence": 0.914,
+        "duration": 0.32,
+        "offset": 5.09,
+        "word": "product"
+      },
+      {
+        "confidence": 0.887,
+        "duration": 0.32,
+        "offset": 5.41,
+        "word": "launch"
+      },
+      {
+        "confidence": 0.818,
+        "duration": 0.32,
+        "offset": 5.73,
+        "word": "to"
+      },
+      {
+        "confidence": 0.867,
+        "duration": 0.32,
+        "offset": 6.05,
+        "word": "december"
+      },
+      {
+        "confidence": 0.471,
+        "duration": 0.8,
+        "offset": 6.37,
+        "word": "fifteenth"
+      },
+      {
+        "confidence": 0.914,
+        "duration": 0.52,
+        "offset": 7.75,
+        "word": "jake"
+      },
+      {
+        "confidence": 0.957,
+        "duration": 0.16,
+        "offset": 8.27,
+        "word": "can"
+      },
+      {
+        "confidence": 0.914,
+        "duration": 0.12,
+        "offset": 8.43,
+        "word": "you"
+      },
+      {
+        "confidence": 0.965,
+        "duration": 0.32,
+        "offset": 8.55,
+        "word": "update"
+      },
+      {
+        "confidence": 0.957,
+        "duration": 0.12,
+        "offset": 8.87,
+        "word": "the"
+      },
+      {
+        "confidence": 0.949,
+        "duration": 0.28,
+        "offset": 8.99,
+        "word": "pitch"
+      },
+      {
+        "confidence": 0.809,
+        "duration": 0.28,
+        "offset": 9.27,
+        "word": "deck"
+      },
+      {
+        "confidence": 0.935,
+        "duration": 0.28,
+        "offset": 9.55,
+        "word": "by"
+      },
+      {
+        "confidence": 0.859,
+        "duration": 0.68,
+        "offset": 9.83,
+        "word": "friday"
+      },
+      {
+        "confidence": 0.632,
+        "duration": 0.52,
+        "offset": 11.44,
+        "word": "andrew"
+      },
+      {
+        "confidence": 0.929,
+        "duration": 0.16,
+        "offset": 11.96,
+        "word": "will"
+      },
+      {
+        "confidence": 0.919,
+        "duration": 0.12,
+        "offset": 12.12,
+        "word": "you"
+      },
+      {
+        "confidence": 0.81,
+        "duration": 0.36,
+        "offset": 12.24,
+        "word": "send"
+      },
+      {
+        "confidence": 0.918,
+        "duration": 0.16,
+        "offset": 12.6,
+        "word": "the"
+      },
+      {
+        "confidence": 0.95,
+        "duration": 0.32,
+        "offset": 12.76,
+        "word": "budget"
+      },
+      {
+        "confidence": 0.876,
+        "duration": 0.48,
+        "offset": 13.08,
+        "word": "numbers"
+      },
+      {
+        "confidence": 0.918,
+        "duration": 0.24,
+        "offset": 13.56,
+        "word": "to"
+      },
+      {
+        "confidence": 0.097,
+        "duration": 0.48,
+        "offset": 13.8,
+        "word": "finance"
+      },
+      {
+        "confidence": 0.203,
+        "duration": 0.28,
+        "offset": 14.28,
+        "word": "next"
+      },
+      {
+        "confidence": 0.799,
+        "duration": 0.76,
+        "offset": 14.56,
+        "word": "tuesday"
+      },
+      {
+        "confidence": 0.831,
+        "duration": 0.56,
+        "offset": 16.48,
+        "word": "also"
+      },
+      {
+        "confidence": 0.745,
+        "duration": 0.36,
+        "offset": 17.08,
+        "word": "sam"
+      },
+      {
+        "confidence": 0.918,
+        "duration": 0.24,
+        "offset": 17.44,
+        "word": "needs"
+      },
+      {
+        "confidence": 0.904,
+        "duration": 0.16,
+        "offset": 17.68,
+        "word": "to"
+      },
+      {
+        "confidence": 0.942,
+        "duration": 0.2,
+        "offset": 17.84,
+        "word": "book"
+      },
+      {
+        "confidence": 0.908,
+        "duration": 0.12,
+        "offset": 18.04,
+        "word": "the"
+      },
+      {
+        "confidence": 0.87,
+        "duration": 0.44,
+        "offset": 18.16,
+        "word": "conference"
+      },
+      {
+        "confidence": 0.875,
+        "duration": 0.2,
+        "offset": 18.6,
+        "word": "room"
+      },
+      {
+        "confidence": 0.935,
+        "duration": 0.12,
+        "offset": 18.8,
+        "word": "for"
+      },
+      {
+        "confidence": 0.799,
+        "duration": 0.12,
+        "offset": 18.92,
+        "word": "the"
+      },
+      {
+        "confidence": 0.92,
+        "duration": 0.36,
+        "offset": 19.04,
+        "word": "client"
+      },
+      {
+        "confidence": 0.845,
+        "duration": 0.56,
+        "offset": 19.4,
+        "word": "demo"
+      },
+      {
+        "confidence": 0.933,
+        "duration": 0.24,
+        "offset": 20.08,
+        "word": "by"
+      },
+      {
+        "confidence": 0.838,
+        "duration": 0.4,
+        "offset": 20.32,
+        "word": "december"
+      },
+      {
+        "confidence": 0.393,
+        "duration": 0.6,
+        "offset": 20.72,
+        "word": "first"
+      },
+      {
+        "confidence": 0.889,
+        "duration": 0.04,
+        "offset": 22.23,
+        "word": "i"
+      },
+      {
+        "confidence": 0.893,
+        "duration": 0.24,
+        "offset": 22.27,
+        "word": "think"
+      },
+      {
+        "confidence": 0.947,
+        "duration": 0.12,
+        "offset": 22.51,
+        "word": "the"
+      },
+      {
+        "confidence": 0.937,
+        "duration": 0.2,
+        "offset": 22.63,
+        "word": "plan"
+      },
+      {
+        "confidence": 0.943,
+        "duration": 0.24,
+        "offset": 22.83,
+        "word": "looks"
+      },
+      {
+        "confidence": 0.85,
+        "duration": 0.4,
+        "offset": 23.07,
+        "word": "good"
+      },
+      {
+        "confidence": 0.714,
+        "duration": 0.24,
+        "offset": 23.83,
+        "word": "let's"
+      },
+      {
+        "confidence": 0.936,
+        "duration": 0.2,
+        "offset": 24.07,
+        "word": "meet"
+      },
+      {
+        "confidence": 0.821,
+        "duration": 0.24,
+        "offset": 24.27,
+        "word": "again"
+      },
+      {
+        "confidence": 0.938,
+        "duration": 0.12,
+        "offset": 24.51,
+        "word": "on"
+      },
+      {
+        "confidence": 0.903,
+        "duration": 0.12,
+        "offset": 24.63,
+        "word": "the"
+      },
+      {
+        "confidence": 0.806,
+        "duration": 0.56,
+        "offset": 24.75,
+        "word": "tenth"
+      }
+    ]
+  }
+}
