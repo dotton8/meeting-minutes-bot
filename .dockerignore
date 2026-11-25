@@ -1,0 +1,14 @@
+.env
+.venv/
+venv/
+.git/
+.idea/
+.vscode/
+.DS_Store
+__pycache__/
+*.pyc
+.pytest_cache/
+temp_audio/
+*.wav
+*.mp3
+*.webm

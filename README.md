@@ -55,7 +55,14 @@ Every `/process` call emits a `pipeline.process` span with three child spans (`s
 
 ## Deploy (Part F)
 
-Resources live in **West US 2** (Azure for Students region policy). App settings hold the keys; `.env` is never deployed. `startup.sh` installs ffmpeg on every cold start.
+Resources live in **West US 2** (Azure for Students region policy). App Service F1 and B1 quotas are 0 on this subscription in every allowed region, so the app is deployed to **Azure Container Apps** instead:
+
+```bash
+az login
+bash scripts/deploy_containerapp.sh   # builds the Dockerfile in Azure, prints the HTTPS URL
+```
+
+The `Dockerfile` installs ffmpeg and the Speech SDK's native libraries. Only committed files are uploaded; `.env` is never deployed. `startup.sh` is kept for App Service if quota becomes available.
 
 ## Tests
 
