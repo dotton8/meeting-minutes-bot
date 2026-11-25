@@ -52,7 +52,6 @@ az containerapp up \
     AZURE_LANGUAGE_KEY="$AZURE_LANGUAGE_KEY" \
     AZURE_LANGUAGE_ENDPOINT="$AZURE_LANGUAGE_ENDPOINT" \
     APPLICATIONINSIGHTS_CONNECTION_STRING="$APPLICATIONINSIGHTS_CONNECTION_STRING" \
-  --only-show-errors
 
 rm -rf "$SRC"
 FQDN=$(az containerapp show --name "$APP" --resource-group "$RG" \
