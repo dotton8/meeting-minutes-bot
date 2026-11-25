@@ -1,4 +1,5 @@
 # Container image for Azure Container Apps (App Service quota is 0 on this subscription).
+# Built by GitHub Actions (.github/workflows/build-image.yml) because ACR Tasks are blocked.
 FROM python:3.11-slim-bookworm
 
 # ffmpeg converts browser WebM/Opus and MP3 to WAV; libasound2 + ca-certificates + libssl3
@@ -12,6 +13,9 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
+# Commit the image was built from; /health reports it (Track 2 evidence)
+ARG GIT_SHA=local
+ENV GIT_SHA=$GIT_SHA
 ENV PORT=8000
 EXPOSE 8000
 CMD ["gunicorn", "--bind=0.0.0.0:8000", "--timeout", "600", "--workers", "1", "--threads", "4", "app:app"]

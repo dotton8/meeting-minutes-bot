@@ -4,8 +4,8 @@
 # allowed region, so the app runs as a container instead. Container Apps gives the same
 # free https://<name>.<region>.azurecontainerapps.io URL with a valid TLS certificate.
 #
-# Run from the project root after `az login`. Keys are read from your local .env and passed
-# as environment variables; .env itself is never uploaded (only committed files are sent).
+# Run from the project root after `az login`, once the GitHub Actions build is green.
+# Keys are read from your local .env and passed as environment variables; .env is never uploaded.
 set -euo pipefail
 
 RG=cs345-speech-rg
@@ -28,22 +28,22 @@ for v in AZURE_SPEECH_KEY AZURE_SPEECH_REGION AZURE_LANGUAGE_KEY AZURE_LANGUAGE_
 done
 
 echo "== Registering providers (safe to repeat)"
-for ns in Microsoft.App Microsoft.ContainerRegistry Microsoft.OperationalInsights; do
+for ns in Microsoft.App Microsoft.OperationalInsights; do
   az provider register --namespace "$ns" --wait
 done
 az extension add --name containerapp --upgrade --yes --only-show-errors
 
-echo "== Packaging committed files only"
-SRC=$(mktemp -d)
-git archive HEAD | tar -x -C "$SRC"
+# The image is built by GitHub Actions and published to GitHub Container Registry,
+# because Azure for Students blocks ACR Tasks (cloud builds). Azure only pulls it.
+IMAGE=${IMAGE:-ghcr.io/dotton8/meeting-minutes-bot:latest}
 
-echo "== Building in Azure and deploying (5-10 minutes)"
+echo "== Deploying $IMAGE (2-5 minutes)"
 az containerapp up \
   --name "$APP" \
   --resource-group "$RG" \
   --location "$LOC" \
   --environment "$ENV_NAME" \
-  --source "$SRC" \
+  --image "$IMAGE" \
   --ingress external \
   --target-port 8000 \
   --env-vars \
@@ -51,9 +51,8 @@ az containerapp up \
     AZURE_SPEECH_REGION="$AZURE_SPEECH_REGION" \
     AZURE_LANGUAGE_KEY="$AZURE_LANGUAGE_KEY" \
     AZURE_LANGUAGE_ENDPOINT="$AZURE_LANGUAGE_ENDPOINT" \
-    APPLICATIONINSIGHTS_CONNECTION_STRING="$APPLICATIONINSIGHTS_CONNECTION_STRING" \
+    APPLICATIONINSIGHTS_CONNECTION_STRING="$APPLICATIONINSIGHTS_CONNECTION_STRING"
 
-rm -rf "$SRC"
 FQDN=$(az containerapp show --name "$APP" --resource-group "$RG" \
   --query properties.configuration.ingress.fqdn --output tsv)
 echo

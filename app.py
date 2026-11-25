@@ -79,7 +79,7 @@ def index():
 
 @app.get("/health")
 def health():
-    return jsonify({"status": "ok"})
+    return jsonify({"status": "ok", "commit": os.environ.get("GIT_SHA", "local")})
 
 
 @app.get("/telemetry-summary")

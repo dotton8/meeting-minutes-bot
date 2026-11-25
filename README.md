@@ -59,10 +59,10 @@ Resources live in **West US 2** (Azure for Students region policy). App Service 
 
 ```bash
 az login
-bash scripts/deploy_containerapp.sh   # builds the Dockerfile in Azure, prints the HTTPS URL
+bash scripts/deploy_containerapp.sh   # deploys the image GitHub Actions built, prints the HTTPS URL
 ```
 
-The `Dockerfile` installs ffmpeg and the Speech SDK's native libraries. Only committed files are uploaded; `.env` is never deployed. `startup.sh` is kept for App Service if quota becomes available.
+Azure for Students also blocks ACR Tasks (cloud image builds), so **GitHub Actions** (`.github/workflows/build-image.yml`) runs the tests on every push to `main` and, if they pass, builds the image and publishes it to `ghcr.io/dotton8/meeting-minutes-bot`. The `Dockerfile` installs ffmpeg and the Speech SDK's native libraries. `/health` reports the commit the running image was built from. Only committed files are uploaded; `.env` is never deployed. `startup.sh` is kept for App Service if quota becomes available.
 
 ## Tests
 
