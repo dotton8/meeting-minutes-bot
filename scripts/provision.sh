@@ -4,7 +4,7 @@
 set -euo pipefail
 
 RG=cs345-speech-rg
-LOC=${LOC:-eastus}
+LOC=${LOC:-westus2}   # Azure for Students only allows a few regions; eastus is blocked
 
 az group create --name "$RG" --location "$LOC" --output none
 

@@ -23,6 +23,7 @@ Audio (browser mic or file)
 | `pipeline/minutes.py` | Decision, action-item and completion detection |
 | `pipeline/tts.py` | Summary text and Neural TTS (MP3, base64) |
 | `static/index.html` | Recorder and upload page |
+| `telemetry.py` | Application Insights setup, custom metrics, pipeline events, session log (Part G) |
 
 ## Setup (local)
 
@@ -44,7 +45,17 @@ curl -H "Content-Type: application/json" -d '{"text":"Jake, can you update the d
 curl -F "audio=@meeting1.wav" -F "meeting_date=2026-11-16" http://localhost:5000/process
 ```
 
+`GET /telemetry-summary` returns session averages (confidence, per-stage latency, action items per meeting).
+
 Errors return JSON `{"error": ..., "status": ...}`: 400 missing input, 413 file over 25 MB, 415 unsupported or undecodable audio, 422 no speech recognized, 502 Azure service failure.
+
+## Telemetry (Part G)
+
+Every `/process` call emits a `pipeline.process` span with three child spans (`stage.speech_to_text`, `stage.language_analysis`, `stage.text_to_speech`), the standard custom metrics (`stt_confidence`, `stage_*_ms`, ...), and the domain metric **`action_items_per_meeting`**.
+
+## Deploy (Part F)
+
+Resources live in **West US 2** (Azure for Students region policy). App settings hold the keys; `.env` is never deployed. `startup.sh` installs ffmpeg on every cold start.
 
 ## Tests
 

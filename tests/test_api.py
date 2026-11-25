@@ -67,3 +67,12 @@ def test_process_full_pipeline(client, tone_webm):
     assert (item["owner"], item["due_date"]) == ("Jake", "2026-11-20")
     assert r.json["summary"]["audio_base64"] == "QUJD"
     assert r.json["metrics"]["action_items_count"] == 1
+
+
+def test_telemetry_summary_after_process(client, tone_webm):
+    client.post("/process", data={"audio": (io.BytesIO(tone_webm), "rec.webm"),
+                                  "meeting_date": "2026-11-16"})
+    r = client.get("/telemetry-summary")
+    assert r.status_code == 200
+    assert r.json["total_calls"] >= 1
+    assert r.json["avg_action_items_per_meeting"] == 1
